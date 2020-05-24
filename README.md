@@ -1,6 +1,6 @@
 # Terminal Synchroniser
 
-Termsync is a **.NET Core** library for synchronising terminal io in an asynchronous contex.
+Termsync is a **.NET Core** library for synchronising terminal IO in an asynchronous contex.
 It guarantees user keystrokes into the console are never split up by `WriteLines()`s happening on other threads.
 Also exposed is a global `Channel<string>` object for reading user input lines asynchronously.
 
@@ -50,15 +50,15 @@ Multiple threads might often want to write multiple lines over a short period of
 The programmer might encounter a situation like this:
 
 1. Thread 1
-..- `WriteLine("Line 1 of important message");`
-..- `WriteLine("Line 2 that we don't want");`
-..- `WriteLine("Line 3 to be split up by another message");`
+  - `WriteLine("Line 1 of important message");`
+  - `WriteLine("Line 2 that we don't want");`
+  - `WriteLine("Line 3 to be split up by another message");`
 2. Thread 2
-..- `WriteLine("Line 4 of thread 2's important message");`
-..- `WriteLine("Line 5 that it really doesn't want");`
-..- `WriteLine("Line 6 to be split up by another message");`
+  - `WriteLine("Line 4 of thread 2's important message");`
+  - `WriteLine("Line 5 that it really doesn't want");`
+  - `WriteLine("Line 6 to be split up by another message");`
 3. Thread 3
-..- `WriteLine("A single line message from thread 3");`
+  - `WriteLine("A single line message from thread 3");`
 
 And she could see this:
 ```
