@@ -10,7 +10,7 @@ It spawns a "worker" `Task` when initialised that creates channels for piping in
 
 See [Terminal.cs][terminal-cs] for inline API documentation. (WIP)
 
-[terminal-cs]: ../blob/master/termsync/Terminal.cs
+[terminal-cs]: ./termsync/Terminal.cs
 
 ## Examples
 
