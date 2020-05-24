@@ -1,12 +1,14 @@
 # Terminal Synchroniser
 
-Termsync is a **.NET Core** library for synchronising `Console` io in an asyncronous contex.
+Termsync is a **.NET Core** library for synchronising terminal io in an asyncronous contex.
 It guarantees user keystrokes into the console are never split up by `WriteLines()`s happening on other threads.
 Also exposed is a global `Channel<string>` object for reading user input lines asynchronously.
 
+It spawns a "worker" `Task` when initialised that creates channels for piping info to and from the console atomically.
+
 ## Documentation
 
-See [Terminal.cs][terminal-cs] for inline API documentation.
+See [Terminal.cs][terminal-cs] for inline API documentation. (WIP)
 
 [terminal-cs]: ../blob/master/termsync/Terminal.cs
 
@@ -17,7 +19,7 @@ Start the worker that reads and writes to `Console`.
 ``` c#
 	Task worker = Terminal.Initialise();
 	
-	// ... use it here
+	// ... program code here
 	
 	Terminal.Close(); // Manually clean up resources. Not required as it is cleaned up on exist.
 	await worker; // Wait for the worker to close if you want.
@@ -31,7 +33,7 @@ Line writes are asyncronous, await them to yield until the line has been display
 ### Read lines
 Line reads can take `CancellationToken`.
 ``` c#
-	string line = await Terminal.ReadLine(source.Token); // 
+	string line = await Terminal.ReadLine(source.Token);
 ```
 
 ### Change user prompt
@@ -98,7 +100,7 @@ The drawback is it is a global mutex that can be acquired for any amount of time
 ```
 
 ## Pitfalls
-* The library respectfully asks the programmer to not  use the `Terminal` interface instead of the `Console` interface for all reads and writes in the program. I realise this is not ideal, or even possible in some cases.
+* The library respectfully asks the programmer to use the `Terminal` interface instead of the `Console` interface for all reads and writes in the program. I realise this is not ideal, or even possible in some cases.
   This can cause problems when dependencies write to `Console` and can break lines and such. 
   Maybe I will try to fix this if I run into this problem.
 * Currently only full line writes are supported at a time.
