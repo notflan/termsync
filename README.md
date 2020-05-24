@@ -1,6 +1,6 @@
 # Terminal Synchroniser
 
-Termsync is a **.NET Core** library for synchronising terminal io in an asyncronous contex.
+Termsync is a **.NET Core** library for synchronising terminal io in an asynchronous contex.
 It guarantees user keystrokes into the console are never split up by `WriteLines()`s happening on other threads.
 Also exposed is a global `Channel<string>` object for reading user input lines asynchronously.
 
@@ -26,7 +26,7 @@ Start the worker that reads and writes to `Console`.
 ```
 
 ### Write lines
-Line writes are asyncronous, await them to yield until the line has been displayed in the `Console`.
+Line writes are asynchronous, await them to yield until the line has been displayed in the `Console`.
 ``` c#
 	await Terminal.WriteLine("A line.")
 ```
